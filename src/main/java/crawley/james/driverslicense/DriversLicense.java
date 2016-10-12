@@ -46,7 +46,7 @@ public class DriversLicense {
 
     String serializeToJSON () {
 
-        return null;
+        return String.format("{\"name\":\"%s\", \"gender\":\"%c\", \"dateOfBirth\":\"%s\", \"weight\":%.2f, \"organDonor\":%b, \"endorsements\":\"%s\"}", name, gender, dateOfBirth, weight, organDonor, endorsements);
 
     }
 
@@ -65,6 +65,8 @@ public class DriversLicense {
 
     static DriversLicense deserializeFromJSON (String serializedLicense) {
 
-        return null;
+        serializedLicense = serializedLicense.replaceAll("[{}\"]", "");
+        String[] arr = serializedLicense.split("[:,]");
+        return new DriversLicense(arr[1], arr[3].charAt(0), arr[5], Double.parseDouble(arr[7]), Boolean.parseBoolean(arr[9]), arr[11]);
     }
 }

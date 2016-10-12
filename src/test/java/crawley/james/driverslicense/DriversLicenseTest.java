@@ -28,8 +28,9 @@ public class DriversLicenseTest {
     @Test
     public void serializeJSONTest () {
         DriversLicense driversLicense = new DriversLicense("John Smith", 'M', "04-27-1983", 134.2, true, " ");
+        String expected = "{\"name\":\"John Smith\", \"gender\":\"M\", \"dateOfBirth\":\"04-27-1983\", \"weight\":134.20, \"organDonor\":true, \"endorsements\":\" \"}";
         String actual = driversLicense.serializeToJSON();
-        assertEquals("The object should be serialized as \"John Smith,M,04-27-1983,134.20,true, \"", "John Smith,M,04-27-1983,134.20,true, ", actual);
+        assertEquals("The object should be serialized as " + expected,  expected, actual);
 
     }
 

@@ -7,9 +7,9 @@ public class Main {
 
     public static void main(String[] args) {
         DriversLicense driversLicense = new DriversLicense("John Smith", 'M', "04-27-1983", 134.2, true, " ");
-        System.out.println(DriversLicense.getCSVHeader());
-        System.out.println(driversLicense.serializeToCSV());
-        DriversLicense deserialized = DriversLicense.deserializeFromCSV(driversLicense.serializeToCSV());
-        System.out.println(deserialized.serializeToCSV());
+        String serialized = driversLicense.serializeToJSON();
+        DriversLicense deserialized = DriversLicense.deserializeFromJSON(serialized);
+        System.out.println(deserialized.serializeToJSON());
+
     }
 }
