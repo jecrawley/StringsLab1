@@ -50,6 +50,19 @@ public class DriversLicense {
 
     }
 
+    String serialize (String format) throws UnsupportedFormatException {
+
+        format = format.toLowerCase();
+
+        if (format.equals("csv")) {
+            return this.serializeToCSV();
+        } else if (format.equals("json")) {
+            return this.serializeToJSON();
+        } else {
+            throw new UnsupportedFormatException();
+        }
+    }
+
     static String getCSVHeader () {
 
         return String.format ("%s,%s,%s,%s,%s,%s", "Name", "Gender", "Date of Birth", "Weight", "Organ Donor", "Endorsements");
@@ -68,5 +81,18 @@ public class DriversLicense {
         serializedLicense = serializedLicense.replaceAll("[{}\"]", "");
         String[] arr = serializedLicense.split("[:,]");
         return new DriversLicense(arr[1], arr[3].charAt(0), arr[5], Double.parseDouble(arr[7]), Boolean.parseBoolean(arr[9]), arr[11]);
+    }
+
+    static DriversLicense deserialize (String serializedLicense, String format) throws UnsupportedFormatException {
+
+        format = format.toLowerCase();
+
+        if (format.equals("csv")) {
+            return deserializeFromCSV(serializedLicense);
+        } else if (format.equals("json")) {
+            return deserializeFromJSON(serializedLicense);
+        } else {
+            throw new UnsupportedFormatException();
+        }
     }
 }

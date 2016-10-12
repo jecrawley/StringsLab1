@@ -43,5 +43,39 @@ public class DriversLicenseTest {
 
     }
 
+    @Test
+    public void serializeTest () {
+        DriversLicense driversLicense = new DriversLicense("John Smith", 'M', "04-27-1983", 134.2, true, " ");
+        String actual = driversLicense.serialize("CSV");
+        assertEquals("The object should be serialized as \"John Smith,M,04-27-1983,134.20,true, \"", "John Smith,M,04-27-1983,134.20,true, ", actual);
+
+    }
+
+    @Test (expected = UnsupportedFormatException.class)
+    public void serializeErrorTest () {
+        DriversLicense driversLicense = new DriversLicense("John Smith", 'M', "04-27-1983", 134.2, true, " ");
+        String actual = driversLicense.serialize("XML");
+        assertEquals("The object should be serialized as \"John Smith,M,04-27-1983,134.20,true, \"", "John Smith,M,04-27-1983,134.20,true, ", actual);
+
+    }
+
+    @Test
+    public void deserializeTest () {
+        DriversLicense driversLicense = new DriversLicense("John Smith", 'M', "04-27-1983", 134.2, true, " ");
+        String serialized = driversLicense.serialize("CSV");
+        DriversLicense deserialized = DriversLicense.deserialize(serialized, "CSV");
+        assertEquals("The derserialized object should be equal to the original.", driversLicense, deserialized);
+
+    }
+
+    @Test (expected = UnsupportedFormatException.class)
+    public void deserializeErrorTest () {
+        DriversLicense driversLicense = new DriversLicense("John Smith", 'M', "04-27-1983", 134.2, true, " ");
+        String serialized = driversLicense.serialize("CSV");
+        DriversLicense deserialized = DriversLicense.deserialize(serialized, "XML");
+        assertEquals("The derserialized object should be equal to the original.", driversLicense, deserialized);
+
+    }
+
 
 }
